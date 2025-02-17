@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .new-btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .event-container {
+            display: flex;
+            gap: 20px;
+        }
+        .event-card {
+            width: 200px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+        .event-card .event-header {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+        }
+        .event-card .event-footer {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 10px;
+        }
+        .event-card .event-footer button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .edit { color: #3498db; }
+        .view { color: #2ecc71; }
+        .delete { color: #e74c3c; }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const eventContainer = document.getElementById("eventContainer");
+
+            function addEvent() {
+                const card = document.createElement("div");
+                card.classList.add("event-card");
+                card.innerHTML = `
+                    <div class="event-header">EVENT NAME</div>
+                    <div class="event-footer">
+                        <button class="edit" onclick="editEvent(this)">&#9998;</button>
+                        <button class="view" onclick="viewEvent(this)">&#128065;</button>
+                        <button class="delete" onclick="deleteEvent(this)">&#128465;</button>
+                    </div>
+                `;
+                eventContainer.appendChild(card);
+            }
+            
+            window.addEvent = addEvent;
+        });
+
+        function editEvent(button) {
+            alert("Edit Event clicked!");
+        }
+
+        function viewEvent(button) {
+            alert("View Event clicked!");
+        }
+
+        function deleteEvent(button) {
+            button.closest(".event-card").remove();
+        }
+
+        function filterEvents() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let cards = document.querySelectorAll(".event-card");
+            cards.forEach(card => {
+                let text = card.textContent.toLowerCase();
+                card.style.display = text.includes(input) ? "block" : "none";
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <input type="text" id="search" placeholder="Search" onkeyup="filterEvents()">
+            <button class="new-btn" onclick="addEvent()">+ NEW</button>
+        </div>
+        <div class="event-container" id="eventContainer">
+            <!-- Event cards will be generated here -->
+        </div>
+    </div>
+</body>
+</html>
