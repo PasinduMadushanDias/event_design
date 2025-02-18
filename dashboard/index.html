@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li>Home</li>
+            <li>Reports</li>
+            <li>Settings</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>Dashboard</h1>
+        <p>View current progress</p>
+        
+        <div class="stats">
+            <div class="card"> <h2>15</h2> <p>Companies Registered</p> </div>
+            <div class="card"> <h2>320</h2> <p>Total No. of students</p> </div>
+            <div class="card"> <h2>210</h2> <p>No. of students Got Intern</p> </div>
+        </div>
+
+        <div class="charts">
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="calendar">
+                <input type="date" id="calendar-input">
+            </div>
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .sidebar {
+            width: 200px;
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            padding: 10px 0;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 150px;
+        }
+        .charts {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .chart-container {
+            width: 45%;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Software Engineering', 'QA', 'Data Analytics'],
+                    datasets: [{
+                        data: [50, 30, 20],
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107']
+                    }]
+                }
+            });
+
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                    datasets: [{
+                        label: 'Intern Placements',
+                        data: [5, 10, 15, 20, 25, 30, 35],
+                        backgroundColor: '#007bff'
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>
